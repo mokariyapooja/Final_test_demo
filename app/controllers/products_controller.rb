@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin! ,only: [:new, :create, :edit, :update, :destroy,:import] 
-  #layout 'admin_layout'
 
   def index
   @products = Product.all
