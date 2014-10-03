@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AdminUserDemo</title>
+  <%= stylesheet_link_tag    'admin_layout', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'admin_layout', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+  <div id="admin_nav">
+    <% if admin_signed_in? %>
+      Signed in as <%= current_admin.email %>. Not you?
+      <%= link_to "Sign out", destroy_admin_session_path, :method => :delete %>
+      <h2>Import Products</h2>
+            <%= form_tag import_products_path, multipart: true do %>
+              <%= file_field_tag :file %>
+            <%= submit_tag "Import" %>
+          <% end %>
+    <% else %>
+      <%= link_to "Sign in for admin", new_admin_session_path %>
+      <%= link_to "Sign in for user", new_user_session_path %>
+    <% end %>
+    |
+<%= link_to 'Home', root_path %>
+  </div>
+
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AdminUserDemo</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+  <div id="user_nav">
+    <% if user_signed_in? %>
+      Signed in as <%= current_user.email %>. Not you?
+      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+      <h2>Export Products</h2>
+      <p>
+      Download:
+        <%= link_to "CSV File", products_path(format: "csv") %> |
+        <%= link_to "Excel File", products_path(format: "xls") %>
+      </p>
+    <% else %>
+      <%= link_to "Sign up for user", new_user_registration_path %> | <%= link_to "sign in for user", new_user_session_path %> | <%= link_to "Sign in for admin", new_admin_session_path %>
+    <% end %>
+ | <%= link_to "Product list", products_path %>
+  </div>
+  <div id="admin_nav">
+    <% if admin_signed_in? %>
+      Signed in as <%= current_admin.email %>. Not you?
+      <%= link_to "Sign out", destroy_admin_session_path, :method => :delete %>
+      <h2>Import Products</h2>
+        <%= form_tag import_products_path, multipart: true do %>
+          <%= file_field_tag :file %>
+          <%= submit_tag "Import" %>
+        <% end %>
+      <h2>Export Products</h2>
+      <p>
+      Download:
+        <%= link_to "CSV File", products_path(format: "csv") %> |
+        <%= link_to "Excel File", products_path(format: "xls") %>
+      </p>
+    <% end %>
+ 
+
+<%= yield %>
+
+</body>
+</html>
