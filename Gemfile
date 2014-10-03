@@ -43,5 +43,5 @@ gem 'spring',        group: :development
 gem 'devise'
 #import file
 gem 'roo'
-#send mail
-gem 'mandrill-rails'
+# #send mail
+# gem 'mandrill-rails'
